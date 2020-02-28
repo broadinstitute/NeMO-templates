@@ -3,10 +3,21 @@
 * @param {Object} req Cloud Function request context.
 * @param {Object} res Cloud Function response context.
 */
-exports.helloGET = (req, res) => {
-    res.send('Hello from Cloud Functions and Cloud Source Repositories');
-  };
 
+const util = require('util');
+const exec = util.promisify(require('child_process').exec);
+async function deployUploadFile(req, res) {
+  try {
+      const { stdout, stderr } = await exec('gcloud beta functions deploy NeMO-source-repositories-test --stage-bucket gs://nemo-tests/ --trigger-http');
+      console.log('stdout:', stdout);
+      console.log('stderr:', stderr);
+  }catch (err){
+     console.error(err);
+  };
+  res.send(`Deploying Cloud Function`);
+};
+
+exports.deployUploadFile = deployUploadFile;
 
 const bucketName = 'gs://nemo-tests/';
 const filename = 'template-workspaces.json';
@@ -36,7 +47,7 @@ async function uploadFile(req, res) {
 
   console.log(`${filename} uploaded to ${bucketName}.`);
   
-  res.send('Uploading Files');
+  res.send(`${filename} uploaded to ${bucketName}.`);
 }
 
 uploadFile().catch(console.error);
