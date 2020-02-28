@@ -28,7 +28,7 @@ async function deployUploadFile(req, res) {
 exports.deployUploadFile = deployUploadFile;
 
 const bucketName = 'gs://nemo-tests/';
-const filename = 'NeMO-templates/template-workspaces.json';
+const filename = '/NeMO-templates/template-workspaces.json';
 
 // Imports the Google Cloud client library
 const {Storage} = require('@google-cloud/storage');
@@ -63,7 +63,7 @@ async function uploadFile(req, res) {
   console.log(`${filename} uploaded to ${bucketName}.`);
 
   try {
-    const { stdout, stderr } = await exec('rm -r NeMO-templates');
+    const { stdout, stderr } = await exec('rm -r /NeMO-templates');
     console.log('stdout:', stdout);
     console.log('stderr:', stderr);
   }catch (err){
