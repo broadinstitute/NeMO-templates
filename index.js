@@ -28,7 +28,8 @@ async function deployUploadFile(req, res) {
 exports.deployUploadFile = deployUploadFile;
 
 const bucketName = 'gs://nemo-tests/';
-const filename = 'template-workspaces.json';
+const filename = 'https://source.cloud.google.com/dsp-fieldeng-dev/github_broadinstitute_nemo-templates/+/master:template-workspaces.json'
+;
 
 // Imports the Google Cloud client library
 const {Storage} = require('@google-cloud/storage');
@@ -62,8 +63,6 @@ function downloadRepo (repository, destination) {
 
 async function uploadFile(req, res) {
   console.log('Uploading File');
-  var test = downloadRepo('broadinstitute/NeMO-templates', `/tmp/NeMO-templates`)
-  console.log(test);
   // Uploads a local file to the bucket
   await storage.bucket(bucketName).upload(filename, {
     // Support for HTTP requests made with `Accept-Encoding: gzip`
