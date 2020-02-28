@@ -45,7 +45,6 @@ async function uploadFile(req, res) {
   }catch (err){
    console.error(err);
   };
-  git-force-clone
   
   // Uploads a local file to the bucket
   await storage.bucket(bucketName).upload(filename, {
