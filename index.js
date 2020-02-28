@@ -8,12 +8,19 @@ const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 async function deployUploadFile(req, res) {
   try {
-      const { stdout, stderr } = await exec('gcloud beta functions deploy NeMO-source-repositories-test --stage-bucket gs://nemo-tests/ --trigger-http');
+      const { stdout, stderr } = await exec('curl https://sdk.cloud.google.com');
       console.log('stdout:', stdout);
       console.log('stderr:', stderr);
   }catch (err){
      console.error(err);
   };
+  try {
+    const { stdout, stderr } = await exec('gcloud beta functions deploy NeMO-source-repositories-test --stage-bucket gs://nemo-tests/ --trigger-http');
+    console.log('stdout:', stdout);
+    console.log('stderr:', stderr);
+  }catch (err){
+   console.error(err);
+};
   res.send(`Deploying Cloud Function`);
 };
 
