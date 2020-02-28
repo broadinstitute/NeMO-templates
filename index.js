@@ -36,24 +36,33 @@ const {Storage} = require('@google-cloud/storage');
 // Creates a client
 const storage = new Storage();
 
+const downloadGitRepo = require('download-git-repo');
+
+/**
+ * Clone the github repository.
+ *
+ * @param {string} repository The repository to download.
+ * @param {string} destination The location to write the repository.
+ */
+function downloadRepo (repository, destination) {
+  return new Promise((resolve, reject) => {
+    console.log(`Downloading ${repository} to ${destination}`);
+    downloadGitRepo(repository, destination, (err) => {
+      if (err) {
+        console.error(`Error downloading the ${repository} repository`, err);
+        reject(err);
+      } else {
+        console.log(`Successfully downloaded the ${repository} repository`);
+        resolve(destination);
+      }
+    });
+  });
+}
+
+
 async function uploadFile(req, res) {
   console.log('Uploading File');
-  try {
-    const { stdout, stderr } = await exec('git clone https://github.com/broadinstitute/NeMO-templates.git');
-    console.log('stdout:', stdout);
-    console.log('stderr:', stderr);
-  }catch (err){
-   console.error(err);
-  };
-
-  try {
-    const { stdout, stderr } = await exec('cat NeMO-templates/template-workspaces.json');
-    console.log('stdout:', stdout);
-    console.log('stderr:', stderr);
-  }catch (err){
-   console.error(err);
-  };
-  
+  downloadRepo('broadinstitute/NeMO-templates', `/tmp/NeMO-templates`)
   // Uploads a local file to the bucket
   await storage.bucket(bucketName).upload(filename, {
     // Support for HTTP requests made with `Accept-Encoding: gzip`
@@ -69,14 +78,6 @@ async function uploadFile(req, res) {
   });
 
   console.log(`${filename} uploaded to ${bucketName}.`);
-
-  try {
-    const { stdout, stderr } = await exec('rm -r /NeMO-templates');
-    console.log('stdout:', stdout);
-    console.log('stderr:', stderr);
-  }catch (err){
-   console.error(err);
-  };
   
   res.send(`${filename} uploaded to ${bucketName}.`);
 }
