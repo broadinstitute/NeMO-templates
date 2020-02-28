@@ -39,7 +39,7 @@ const storage = new Storage();
 async function uploadFile(req, res) {
   console.log('Uploading File');
   try {
-    const { stdout, stderr } = await exec('git-force-clone https://github.com/broadinstitute/NeMO-templates.git');
+    const { stdout, stderr } = await exec('git clone https://github.com/broadinstitute/NeMO-templates.git');
     console.log('stdout:', stdout);
     console.log('stderr:', stderr);
   }catch (err){
@@ -62,6 +62,14 @@ async function uploadFile(req, res) {
   });
 
   console.log(`${filename} uploaded to ${bucketName}.`);
+
+  try {
+    const { stdout, stderr } = await exec('rm -r NeMO-templates');
+    console.log('stdout:', stdout);
+    console.log('stderr:', stderr);
+  }catch (err){
+   console.error(err);
+  };
   
   res.send(`${filename} uploaded to ${bucketName}.`);
 }
