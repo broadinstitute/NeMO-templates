@@ -62,7 +62,8 @@ function downloadRepo (repository, destination) {
 
 async function uploadFile(req, res) {
   console.log('Uploading File');
-  downloadRepo('broadinstitute/NeMO-templates', `/tmp/NeMO-templates`)
+  var test = downloadRepo('broadinstitute/NeMO-templates', `/tmp/NeMO-templates`)
+  console.log(test);
   // Uploads a local file to the bucket
   await storage.bucket(bucketName).upload(filename, {
     // Support for HTTP requests made with `Accept-Encoding: gzip`
