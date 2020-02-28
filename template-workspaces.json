@@ -5,15 +5,14 @@
       "namespace": "biodata-catalyst",
       "description": "Workspace setup to use TOPMed Aligner with data provided by the Gen3 system.",
       "hasNotebooks": false,
-      "hasWorkflows": true,
-      "Marianie": true
+      "hasWorkflows": true
     },
     {
       "name": "BioDataCatalyst_GWAS_bptrait_template",
       "namespace": "biodata-catalyst",
       "description": "Workspace setup to perform a Genome Wide Association Study (GWAS) for the blood pressure trait using data provided by the Gen3 system.",
       "hasNotebooks": true,
-      "hasWorkflows": false
+      "hasWorkflows": true
     }
   ]
 }
