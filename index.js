@@ -76,9 +76,9 @@ async function uploadFile(req, res) {
       'use strict';
       const fs = require('fs');
       let data = JSON.stringify(json);
-      fs.writeFileSync(filename, data);
+      fs.writeFileSync("filename.json", data);
     });
-  await storage.bucket(bucketName).upload(filename, {
+  await storage.bucket(bucketName).upload("filename.json", {
     // Support for HTTP requests made with `Accept-Encoding: gzip`
     gzip: true,
     // By setting the option `destination`, you can change the name of the
