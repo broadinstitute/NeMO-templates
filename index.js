@@ -67,14 +67,16 @@ async function uploadFile(req, res) {
 
   const fetch = require('node-fetch');
 
-  let url = "https://github.com/broadinstitute/NeMO-templates/blob/master/template-workspaces.json"
+  let url = "https://raw.githubusercontent.com/broadinstitute/NeMO-templates/master/template-workspaces.json"
   let settings = { method: "Get" };
 
   fetch(url, settings)
     .then(res => res.json())
     .then((json) => {
-        // do something with JSON
-      console.log(json);
+      'use strict';
+      const fs = require('fs');
+      let data = JSON.stringify(json);
+      fs.writeFileSync(filename, data);
     });
   await storage.bucket(bucketName).upload(filename, {
     // Support for HTTP requests made with `Accept-Encoding: gzip`
