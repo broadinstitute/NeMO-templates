@@ -78,7 +78,7 @@ async function uploadFile(req, res) {
 
   console.log(`${filename} uploaded to ${bucketName}.`);
   
-  res.send(`${filename} uploaded to ${bucketName}.`);
+  // res.send(`${filename} uploaded to ${bucketName}.`);
 }
 
 uploadFile().catch(console.error);
