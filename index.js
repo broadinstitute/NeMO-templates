@@ -60,9 +60,23 @@ function downloadRepo (repository, destination) {
 }
 
 
+
 async function uploadFile(req, res) {
   console.log('Uploading File');
   // Uploads a local file to the bucket
+
+  const fetch = require('node-fetch');
+
+  let url = "https://source.cloud.google.com/dsp-fieldeng-dev/github_broadinstitute_nemo-templates/+/master:template-workspaces.json";
+
+  let settings = { method: "Get" };
+
+  fetch(url, settings)
+    .then(res => res.json())
+    .then((json) => {
+        // do something with JSON
+      console.log(json);
+    });
   await storage.bucket(bucketName).upload(filename, {
     // Support for HTTP requests made with `Accept-Encoding: gzip`
     gzip: true,
@@ -78,7 +92,7 @@ async function uploadFile(req, res) {
 
   console.log(`${filename} uploaded to ${bucketName}.`);
   
-  // res.send(`${filename} uploaded to ${bucketName}.`);
+  res.send('Uploaded File');
 }
 
 uploadFile().catch(console.error);
