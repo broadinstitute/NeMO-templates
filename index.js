@@ -72,12 +72,13 @@ async function uploadFile(req, res) {
 
   fetch(url, settings)
     .then(res => res.json())
-      await storage.bucket(bucketName).upload(res.json(), {
+      await storage.bucket(bucketName).upload(filename, {
         // Support for HTTP requests made with `Accept-Encoding: gzip`
         gzip: true,
         // By setting the option `destination`, you can change the name of the
         // object you are uploading to a bucket.
         metadata: {
+          writeFileSync: res.json(),
           // Enable long-lived HTTP caching headers
           // Use only if the contents of the file will never change
           // (If the contents will change, use cacheControl: 'no-cache')
@@ -88,9 +89,9 @@ async function uploadFile(req, res) {
     //   'use strict';
     //   const fs = require('fs');
     //   let data = JSON.stringify(json);
-    //   fs.writeFileSync(filename, data);
+    //   fs.writeFileSync("filename.json", data);
     // });
- 
+  
 
   console.log(`${filename} uploaded to ${bucketName}.`);
   
