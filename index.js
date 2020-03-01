@@ -67,8 +67,7 @@ async function uploadFile(req, res) {
 
   const fetch = require('node-fetch');
 
-  let url = "https://source.cloud.google.com/dsp-fieldeng-dev/github_broadinstitute_nemo-templates/+/master:template-workspaces.json";
-
+  let url = "https://github.com/broadinstitute/NeMO-templates/blob/master/template-workspaces.json"
   let settings = { method: "Get" };
 
   fetch(url, settings)
