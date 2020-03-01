@@ -12,7 +12,8 @@
       "namespace": "biodata-catalyst",
       "description": "Workspace setup to perform a Genome Wide Association Study (GWAS) for the blood pressure trait using data provided by the Gen3 system.",
       "hasNotebooks": true,
-      "hasWorkflows": true
+      "hasWorkflows": true,
+      "Marianie": true
     }
   ]
 }
