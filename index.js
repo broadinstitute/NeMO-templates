@@ -64,27 +64,26 @@ function downloadRepo (repository, destination) {
 async function uploadFile(req, res) {
   console.log('Uploading File');
   // Uploads a local file to the bucket
+
   const fetch = require('node-fetch');
 
   let url = "https://raw.githubusercontent.com/broadinstitute/NeMO-templates/master/template-workspaces.json"
   let settings = { method: "Get" };
 
   fetch(url, settings)
-    .then(res => await storage.bucket(bucketName).upload(res, {
-      // Support for HTTP requests made with `Accept-Encoding: gzip`
-      gzip: true,
-      name:filename, 
-      // By setting the option `destination`, you can change the name of the
-      // object you are uploading to a bucket.
-      metadata: {
-        
-        // Enable long-lived HTTP caching headers
-        // Use only if the contents of the file will never change
-        // (If the contents will change, use cacheControl: 'no-cache')
-        cacheControl: 'no-cache'
-      },
-    }))
-      
+    .then(res => res.json())
+      await storage.bucket(bucketName).upload(filename, {
+        // Support for HTTP requests made with `Accept-Encoding: gzip`
+        gzip: true,
+        // By setting the option `destination`, you can change the name of the
+        // object you are uploading to a bucket.
+        metadata: {
+          // Enable long-lived HTTP caching headers
+          // Use only if the contents of the file will never change
+          // (If the contents will change, use cacheControl: 'no-cache')
+          cacheControl: 'no-cache'
+        },
+      });
     // .then((json) => {
     //   'use strict';
     //   const fs = require('fs');
@@ -95,7 +94,7 @@ async function uploadFile(req, res) {
 
   console.log(`${filename} uploaded to ${bucketName}.`);
   
-  
+  res.send('Uploaded File');
 }
 
 uploadFile().catch(console.error);
