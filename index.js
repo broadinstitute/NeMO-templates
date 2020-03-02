@@ -71,20 +71,21 @@ async function uploadFile(req, res) {
 
   fetch(url, settings)
     .then(res => res.text())
-      await storage.bucket(bucketName).upload(res.text(), {
-        // Support for HTTP requests made with `Accept-Encoding: gzip`
-        gzip: true,
-        name:filename, 
-        // By setting the option `destination`, you can change the name of the
-        // object you are uploading to a bucket.
-        metadata: {
-          
-          // Enable long-lived HTTP caching headers
-          // Use only if the contents of the file will never change
-          // (If the contents will change, use cacheControl: 'no-cache')
-          cacheControl: 'no-cache'
-        },
-      });
+    .then(body => await storage.bucket(bucketName).upload(body, {
+      // Support for HTTP requests made with `Accept-Encoding: gzip`
+      gzip: true,
+      name:filename, 
+      // By setting the option `destination`, you can change the name of the
+      // object you are uploading to a bucket.
+      metadata: {
+        
+        // Enable long-lived HTTP caching headers
+        // Use only if the contents of the file will never change
+        // (If the contents will change, use cacheControl: 'no-cache')
+        cacheControl: 'no-cache'
+      },
+    }))
+      
     // .then((json) => {
     //   'use strict';
     //   const fs = require('fs');
