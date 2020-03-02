@@ -70,8 +70,9 @@ async function uploadFile(req, res) {
   let settings = { method: "Get" };
 
   fetch(url, settings)
-    .then(res => res.json())
-      await storage.bucket(bucketName).upload(res.filename, {
+    // .then(res => res.json())
+    .then(test)
+      await storage.bucket(bucketName).upload(test, {
         // Support for HTTP requests made with `Accept-Encoding: gzip`
         gzip: true,
         name:filename, 
