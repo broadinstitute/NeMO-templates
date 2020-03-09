@@ -3,7 +3,7 @@ steps:
   args: [
       'beta',
       'functions',
-      'deploy','redeployGithubRepoTest',
+      'deploy','NeMO-source-repositories-test',
       '--source=https://source.cloud.google.com/dsp-fieldeng-dev/github_broadinstitute_nemo-templates/', 
       '--trigger-bucket=trigger',
       '--entry-point=thumbnail',
