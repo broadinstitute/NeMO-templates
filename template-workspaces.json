@@ -5,7 +5,8 @@
       "namespace": "biodata-catalyst",
       "description": "Workspace setup to use TOPMed Aligner with data provided by the Gen3 system.",
       "hasNotebooks": false,
-      "hasWorkflows": true
+      "hasWorkflows": true,
+      "test": true
     },
     {
       "name": "BioDataCatalyst_GWAS_bptrait_template",
