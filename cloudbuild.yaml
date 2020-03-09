@@ -1,0 +1,11 @@
+steps:
+- name: gcr.io/cloud-builders/gcloud
+  args: [
+      'beta',
+      'functions',
+      'deploy','redeployGithubRepoTest',
+      '--source=https://source.cloud.google.com/dsp-fieldeng-dev/github_broadinstitute_nemo-templates/', 
+      '--trigger-bucket=trigger',
+      '--entry-point=thumbnail',
+      '--project=dsp-fieldeng-dev'
+  ]
